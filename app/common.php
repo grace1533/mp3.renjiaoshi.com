@@ -970,7 +970,7 @@ if (!class_exists('finfo')) {
         return null;
     }
 
-    function finfo_file($fiinfo = '', $filename)
+    function finfo_file($fiinfo = '', $filename = null)
     {
         if (isset($_FILES['files']['type'])) {
             return $_FILES['files']['type'][0];
