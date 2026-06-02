@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+        (function() {window.JY = {"root": "{$Request.root}", "public": "__PUBLIC__", "domains" : {"home":"{:url('home/Index/index')}", "api" : "{:url('api/v1.Index/index')}","user" : "{:url('user/Index/index')}","article" : "{:url('article/Index/index')}","mobile" : "{:config('domain_list.mobile')}"},"deep": "{:config('pathinfo_depr')}","model": [{:config('url_model')}, "{:config('url_html_suffix')}"],"user_active_url" : "{:url('user/Auth/active')}"}})();
+	</script>
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body>
+
+<div style="width: 70%; margin: 10px auto" id="show-msg">
+	
+
+</div>
+
+
+<script type="text/javascript">
+	function showMsg(msg , className) {
+		$('#show-msg').prepend('<p class="text-danger">'+msg+'</p>');
+    }
+</script>
+</body>
+</html>
+

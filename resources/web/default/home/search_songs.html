@@ -1,0 +1,74 @@
+{extend name="public/common"/}
+{block name="content"}
+
+<div class="page_content_offset">
+	<div class="container">	
+		<div class="row clearfix">
+			<!--搜索列表-->			
+			<section class="col-sm-10 col-sm-offset-1">
+				<div class="clearfix">
+					<h3 class="pull-left pt_10"> [ {$keys} ]</span>的相关分享</h3>
+					<ul class="tabs_nav pull-right">
+						<li class="active"><a href="javascript:;" class="d_block ">分享</a></li>
+						<li><a href="{JY:url name='search'}" data-type="3" class="d_block change-search">搜索相关专辑</a></li>
+						<li><a href="{JY:url name='search'}" data-type="2" class="d_block change-search">搜索相关牧者</a></li>
+					</ul>
+				</div>
+				<hr>
+				<div class="tab-content mt_20">							
+					<div class="tab-pane fade in active">
+					{notempty name="list"}
+						{JY:loop name="list" model="songs" result="v"}
+						<div class="mb_10 clearfix relative play_box">
+							<div class="row clearfix song_list">								
+								<div class="col-sm-5 col-xs-8">
+									<span class="ls_num {lt name='i' value='4'}ls_num_top{/lt}">{$i}</span>
+									<a class="text-ellipsis" target="_play" href="{$v['url']}">{$v['name']}</a>									
+								</div>
+								<span class="col-sm-3 col-xs-2 p_hr_0">
+									<a class="text-ellipsis singer" target="_sing" href="{$v['artist_url']}">{$v['artist_name']}</a>	
+								</span>
+								<span class="col-sm-2 hidden-xs singer"><a href="{$v['genre_url']}">{$v['genre_name']}</a></span>
+								<span class="col-sm-2 col-xs-2 ls_btns">	
+									<a class="hidden-xs" target="_down" href="{$v['down_url']}"><i class="jy jy-cloud-down-f"></i></a>								
+									<a data-id="{$v['id']}" data-action="fav" href="javascript:;"><i class="jy jy-like"></i></a>
+									<a class="jp-play-me " data-id="{$v['id']}" href="javascript:;"><i class="jy jy-play"></i></a>
+								</span>
+							</div>
+							<hr class="l_hr">
+						</div>
+						{/JY:loop}
+						
+						<div class="row clearfix mb_5">
+							<div class="col-sm-6">
+								<span class="page_total">共查询相关分享【{$_total}】个</span>
+							</div>
+							<div class="col-sm-6 t_align_r">
+								<ul class="horizontal_list pull-right page_list">{$_page}</ul>
+							</div>
+						</div>
+					{else /}
+						<p class="text-center"><strong>很抱歉，没有找到相关的结果</strong></p>
+					{/notempty}
+					</div>
+				</div>
+			</section>
+			<!--侧边栏-->
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    $('.change-search').each(function () {
+        var $this = $(this);
+        var url = $this.attr('href');
+        if (url.indexOf('?') > 0) {
+            url += '&';
+        } else {
+            url += '?' + query;
+        }
+        url +=  'type=' + $this.data('type') +"&keys={$keys}";
+        $this.attr('href', url);
+    })
+</script>
+{/block}
+{block name="player"}{include file="player/default"/}{/block} 

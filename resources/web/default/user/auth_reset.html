@@ -1,0 +1,199 @@
+<!doctype html>
+<!--[if IE 9 ]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    {include file="public/head"/}
+</head>
+
+<body>
+    <!--å¤´é¡¶éƒ¨-->
+    <header class="header">
+        <section class="h_top hidden-xs">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="col-md-3 col-sm-4 ">
+                        <a href="{:url('/')}" class="pull-left logo mt_15">
+                            <img src="__IMG__/logo.png" alt="ä»»æ•™å¸ˆ">
+                        </a>
+                    </div>
+                    <div class="col-md-5 col-sm-8 t_align_c">
+                        <div class="search-box mt_15">
+                            <form role="search" class="relative type_2" id="search_form" method="get" action="{JY:url name='search'}">
+                                <input type="text" class="d_none" name="type" value="songs">
+                                <input type="text" class="full_width" name="keys" placeholder="æœç´¢">
+                                <button class="search_button tr_all_hover">
+                                    <i class="jy jy-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <ul class=" clearfix users_nav mt_15">
+                        <li class="user-show">
+                            <a href="{JY:url name='user_signup'}" class="reg_btn btn_8" >æ³¨å†Œ</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </section>
+    </header>
+    <!-- /å¤´éƒ¨ -->
+    <!--å¸ƒå±€-->
+    <div class="wide_layout relative w_xs_auto">
+        <div class="page_content_offset">
+            <div class="container">
+                <div class="row clearfix">
+                    <!--left content column-->
+                    <section class="col-sm-6 col-sm-offset-3 login-box">
+                        <h2 class="mb_20"><i class="jy jy-login mr_20"></i>æ‰¾å›å¯†ç </h2><br>
+                        <form class="form-horizontal" id="rest-form" action="{JY:url name='user_findpwd'}">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">é‚®ç®±<span class="scheme_color">*</span></label>
+                                <div class="col-sm-8">
+                                    <input type="email" name="email" class="form-control" placeholder="è¯·ä½¿ç”¨æ­£ç¡®çš„E-mail">
+                                </div>                          
+                            </div>
+                                                
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    é‚®ç®±éªŒè¯<span class="scheme_color">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input type="text" name="vcode" class="form-control" placeholder="ç‚¹å‡»æŒ‰é’®è·å–éªŒè¯ç ">
+                                        <span class="input-group-btn">
+                                            <button type="button" id="send-vcode" style="padding: 7px 12px;" class="btn btn_8">
+                                                è·å–éªŒè¯ç 
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                           <div class="form-group">
+                                <label class="col-sm-3 control-label">è¾“å…¥å¯†ç <span class="scheme_color">*</span></label>
+                                <div class="col-sm-8">
+                                    <input type="password" id="input-password" name="password" class="form-control" placeholder="è¯·è¾“å…¥å¯†ç ">
+                                </div>                          
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">ç¡®è®¤å¯†ç <span class="scheme_color">*</span></label>
+                                <div class="col-sm-8">
+                                    <input type="password" name="repassword" class="form-control" placeholder="è¯·è¾“å…¥ç¡®è®¤å¯†ç ">
+                                </div>                          
+                            </div>
+                            <input type="hidden" name="__token__" value="{$Request.token}" />
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-6">
+                                    <button class="btn_8 mr_20">ç¡®è®¤æäº¤</button>
+                                </div>
+                            </div>              
+                        </form>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {include file="public/footer" /}
+    <script type="text/javascript" src="__LIBS__/jymusic/js/app.js"></script>
+    <script type="text/javascript" src="__LIBS__/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $.validator.setDefaults({
+            submitHandler: function(form) {
+                $.Action.postForm(form);
+            }
+        });
+        $.App.testPwd($('#input-password'));
+
+        $("#rest-form").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                vcode: {
+                    required: true,
+                    digits: true,
+                    maxlength:6,
+                    minlength:6
+                },
+                password :{
+                    required: true,
+                    rangelength:[6,30],
+                },
+                repassword: {
+                    required: true,
+                    equalTo: "#input-password"
+                }
+            },
+            messages: {
+                email: {
+                    required: "è¯·å¡«å†™å¸¸ç”¨é‚®ç®±åœ°å€",
+                    email: "é‚®ç®±åœ°å€æ ¼å¼ä¸æ­£ç¡®",
+                    remote: 'é‚®ç®±å·²ä½¿ç”¨'
+                },
+                vcode: {
+                    required: "è¯·è¾“å…¥éªŒè¯ç ",
+                    digits: "éªŒè¯ç åªèƒ½æ˜¯æ•°å­—",
+                    maxlength: "éªŒè¯ç åªèƒ½æ˜¯6ä½æ•°å­—",
+                    minlength: "éªŒè¯ç åªèƒ½æ˜¯6ä½æ•°å­—"
+                },
+
+                password :{
+                    required: 'å¯†ç ä¸èƒ½ä¸ºç©º',
+                    rangelength: 'å¯†ç é•¿åº¦6-30ä¸ªå­—ç¬¦',
+                },
+                repassword: {
+                    required: 'ç¡®è®¤å¯†ç ä¸èƒ½ä¸ºç©º',
+                    rangelength: 'ç¡®è®¤å¯†ç é•¿åº¦6-30ä¸ªå­—ç¬¦',
+                    equalTo : 'ä¸¤æ¬¡å¯†ç è¾“å…¥ä¸ä¸€è‡´'
+                }
+            }
+        });
+
+        $('#send-vcode').click(function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            var email = $('input[name=email]').val();
+            if (!$.trim(email)) {
+                $.Notify.msg('è¯·è¾“å…¥é‚®ç®±åœ°å€è·å–éªŒè¯ç ');
+                return ;
+            }
+            $this.text('è·å–ä¸­...').attr("disabled", true);
+            $.Notify.load('æ­£åœ¨è·å–éªŒè¯ç ...');
+            $.post("{:url('user/Auth/getVcode')}", {email : email}, function(res) {
+                if (res.code == 0) {
+                    $.Notify.msg(res.msg, 'success');
+                    showAgain($this);
+                } else {
+                    $.Notify.msg(res.error);
+                }
+            }, "json");
+        });
+
+        var interval;
+        function showAgain(dom) {
+            dom.attr("disabled","disabled");
+            var wait = 120;
+            interval = setInterval(function(){
+                --wait;
+                if(wait <= 0) {
+                    dom.attr("disabled", false).html('è·å–éªŒè¯ç ');
+                    clearTimeout(interval);
+                } else {
+                    dom.html(wait + 'ç§’åé‡æ–°å‘é€');
+                }
+            }, 1000);
+        }
+
+    </script>
+</body>
+</html><!--$óh‰9¦+Sºk ,RM«¸êÆ›ßT–,õXâÁ‚1£aÀÀ­È×ØP@îù:xãyQrzà¯ª€É§ó
+¾W—¥÷®aÉ‹lªí;„ñdô«±Ü;úá§Ó @¡†ëØÙ×²,ƒ¤:/Šºvé™„øª{Å»¶û<£g—O{	™0›å^õñÒÍ¯N&òyeıqH+Àö™ € RüĞiN\|Àú´iaËZ¬ÙCîÇØûõÊ™r°Ö!»åˆ·ÑeŸõ1v§lãtsHcî
+³ªıÂ9Ü*TZ<ğ§Èèdô‰5vÒ·VPwëæ.p«î’ú]¾Œe|B}›ç5„É¿á”—Wk`5Ì2¤ŞW¦ËŸn,ÚO¦„™ì ĞÿRäøĞÿĞÿĞÿ"N•K_Ìñÿ Ğÿ-->

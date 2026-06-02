@@ -1,0 +1,106 @@
+<footer id="footer" >
+	<div class="container hidden-xs">
+		<div class="row clearfix">
+			<div class="col-sm-6">
+				<h3>{:config('web_site_name')}</h3>
+				<p>{:config('web_site_description')}</p>
+			</div>
+			<div class="col-sm-2">
+				<h3>关于网站</h3>
+				<ul class="vertical_list">
+					{JY:site result="v" limit="5" cache="86400"}
+					<li><a class="tr_delay_hover" href="{$v['url']}">{$v['title']}</a></li>
+					{/JY:site}
+				</ul>
+			</div>
+			<div class="col-sm-2">
+				<h3>帮助中心</h3>
+				<ul class="vertical_list">
+					{JY:site type="help" result="v" limit="5" cache="86400"}
+					<li><a class="tr_delay_hover" href="{$v['url']}">{$v['title']}</a></li>
+					{/JY:site}
+				</ul>
+			</div>
+			<div class="col-sm-2">
+				<h3>沟通方式</h3>
+				<ul class="vertical_list">
+					<li><i class="jy jy-envelope pull-left"></i><a href="mailto:{:config('web_email')}">{:config('web_email')}</a></li>
+					<li><i class="jy jy-share-square pull-left"></i><a href="tencent://message/?uin={:config('web_qq')}&Menu=yes" class="qq">{:config('web_qq')}</a></li>
+					<li><i class="jy jy-phone pull-left"></i><a href="tel:{:config('web_phone')}">{:config('web_phone')}</a></li>
+					<li>
+						<!-- <i class="jy jy-music pull-left" title="必须在微信中打开网页才能一键关注，电脑版还是移动版微信都行"><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU3Mzc0NjgyOA==#wechat_redirect">微信中关注</a></i> -->
+						<i class="contact_e"></i>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<hr>
+		<div class="row clearfix">
+			<!--版权的部分 请务必保留版权 谢谢合作！-->
+			<div class="footer_bottom_part col-sm-6 ">
+				<p class="pull-left"> Powered by <font style="color: #00FF33;">GiantRich</font> &copy; {:date('Y')}</p>
+				<p class="pull-left">
+				&emsp;{:config('web_site_icp')}
+				</p>
+			</div>
+
+			<div class="col-sm-6 mb_10">
+				<!--图标-->
+				<ul class="clearfix horizontal_list social_icons pull-right">
+					<li class="html5 relative">
+						<span class="tooltip tr_all_hover  ">HTML5支持</span>
+						<a class=" t_align_c tr_delay_hover " href="javascript:;">
+							<i class="jy jy-html5"></i>
+						</a>
+					</li>
+					<li class="css3 ml_5 relative">
+						<span class="tooltip tr_all_hover  ">Css3支持</span>
+						<a class="  t_align_c tr_delay_hover" href="javascript:;">
+							<i class="jy jy-css3"></i>
+						</a>
+					</li>
+					<li class="android ml_5 relative">
+						<span class="tooltip tr_all_hover  ">Android支持</span>
+						<a class="t_align_c tr_delay_hover" href="javascript:;">
+							<i class="jy jy-anzhuo"></i>
+						</a>
+					</li>
+					<li class="iPhone ml_5 relative">
+						<span class="tooltip tr_all_hover  ">iPhone支持</span>
+						<a class="t_align_c tr_delay_hover" href="javascript:;">
+							<i class="jy jy-iphone"></i>
+						</a>
+					</li>
+					<li class="windows-Phone ml_5 relative">
+						<span class="tooltip tr_all_hover  ">Windows Phone 8支持</span>
+						<a class="  t_align_c tr_delay_hover" href="javascript:;">
+							<i class="jy jy-window"></i>
+						</a>
+					</li>
+					<li class="rss ml_5 relative">
+						<span class="tooltip tr_all_hover  ">Rss订阅</span>
+						<a class="t_align_c tr_delay_hover" href="javascript:;">
+							<i class="jy jy-rss"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+<!-- 百度自动推送代码开始 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- 百度自动推送代码结束 -->

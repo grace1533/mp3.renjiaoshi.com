@@ -1,0 +1,56 @@
+{extend name="public/common"/}
+{block name="content"}
+<!--content-->
+<div class="page_content_offset">
+	<div class="container">
+		<div class="row clearfix">
+		
+
+			
+		</div>
+
+		<div class="row clearfix mt_20">
+			<section class="col-sm-8">
+				{JY:cate result="c" pid='0' limit="6" key="ck"}
+				{in name="ck" value="2,4"}{:hook('Ads','index_center')}{/in}
+				<div class="info_hd clearfix b1">	
+					<h3 class="hd"><a href="{$c['url']}" title="{$c['title']}">{$c['title']}</a></h3>
+					<span class="more">
+						{JY:cate result="ch" pid="$c['id']" limit="6" key="chk"}
+						{neq name="chk" value="0"}<span>/</span>{/neq}
+			            <a href="{$ch['url']}" title="{$ch['title']}">{$ch['title']}</a>
+						{/JY:cate}
+			         </span>
+			    </div>
+			    <div class="main_list">
+					<div class="top_list">
+						<ul>
+							{JY:info result="v" cate="$c['id']" limit="6" cache="86400" key="li"}
+							{eq name="li" value="0"}
+							<li class="top1 text-ellipsis"> 
+								<a target="_blank" href="{$v['url']}">
+									<b>{$v['title']}</b>
+								</a>
+							</li>
+							{else /}
+							<li class="text-ellipsis"> 
+								<a target="_blank" href="{$v['url']}" >{$v['title']}</a>
+							</li>
+							{/eq}
+							{/JY:info}
+						</ul>
+					</div>
+					
+				</div>			
+				{/JY:cate}
+
+			</section>
+
+			
+
+		</div>
+
+	</div>
+</div>
+
+{/block}

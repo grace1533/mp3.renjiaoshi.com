@@ -1,0 +1,171 @@
+<!doctype html>
+<!--[if IE 9 ]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    {include file="public/head"/}
+</head>
+
+<body>
+    <!--Â§¥È°∂ÈÉ®-->
+    <header class="header">
+        <section class="h_top hidden-xs">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="col-md-3 col-sm-4 ">
+                        <a href="{:url('/')}" class="pull-left logo mt_15">
+                            <img src="__IMG__/logo.png" alt="JYmusic">
+                        </a>
+                    </div>
+                    <div class="col-md-5 col-sm-8 t_align_c">
+                        <div class="search-box mt_15">
+                            <form role="search" class="relative type_2" id="search_form" method="get" action="{JY:url name='search'}">
+                                <input type="text" class="d_none" name="type" value="songs">
+                                <input type="text" class="full_width" name="keys" placeholder="ÊêúÁ¥¢">
+                                <button class="search_button tr_all_hover">
+                                    <i class="jy jy-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <ul class=" clearfix users_nav mt_15">
+                        <li class="user-show">
+                            <a href="{JY:url name='user_signup'}" class="reg_btn btn_8" >Ê≥®ÂÜå</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </section>
+    </header>
+    <!-- /Â§¥ÈÉ® -->
+    <!--Â∏ÉÂ±Ä-->
+    <div class="wide_layout relative w_xs_auto">
+        <div class="page_content_offset">
+            <div class="container">
+                <div class="row clearfix">
+                    <section class="col-sm-6 col-sm-offset-3 login-box" >
+                        <h2 class="mb_20"><i class="jy jy-login mr_20"></i>Áî®Êà∑ÁôªÂΩï</h2>
+                        <hr>
+                        <!--login form-->
+                        <form method="post" name="validator-form" id="login_form" action="{JY:url name='user_sign'}" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    Áî®Êà∑Âêç<span class="scheme_color">*</span>
+                                </label>    
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" required name="username" id="username">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">
+                                    ÂØÜÁ†Å<span class="scheme_color">*</span>
+                                </label>
+                                <div class="col-sm-9">     
+                                    <input type="password" class="form-control" required name="password" id="pass">										
+                                </div>
+                            </div>
+
+                            {if condition="config('verify_off') eq '1' "}
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">È™åËØÅÁ†Å<span class="scheme_color">*</span></label>
+                                <div class="col-sm-9">
+                                    <div class="verify-wrp">
+                                        <input type="text" id="inputPassword" class="form-control" required placeholder="ËØ∑ËæìÂÖ•È™åËØÅÁ†Å" name="verify">
+                                        <img class="verifyimg reloadverify" alt="ÁÇπÂáªÂàáÊç¢" src="{JY:url name='user_captcha'}" style="cursor:pointer;">
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    var verifyimg = $(".verifyimg").attr("src");
+                                    $(".reloadverify").click(function () {
+                                        if (verifyimg.indexOf('?') > 0) {
+                                            $(".verifyimg").attr("src", verifyimg + '&random=' + Math.random());
+                                        } else {
+                                            $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/, '') + '?' + Math.random());
+                                        }
+                                    });
+                                });
+                            </script>
+                            {/if}
+                            <div class="form-group">
+                                 <div class="col-sm-9 col-sm-offset-3">
+                                    <input type="checkbox" id="checkbox_4" checked name="autologin" class="pull-left">
+                                    <label for="checkbox_4">ËÆ∞‰ΩèÊàë</label>
+
+                                    <span>
+                                        <a class="pull-right ml_10" href="{JY:url name='user_findpwd'}">ÂøòËÆ∞ÂØÜÁ†Å?</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <input type="hidden" name="__token__" value="{$Request.token}" />
+                            <div class="form-group">
+                                <div class="col-sm-9 col-sm-offset-3">
+                                    <button class="btn_8">ÁôªÂΩï</button>
+                                    <a class="sina-btn" href="{JY:url name='oauth_weibo'}" class="color_dark"><i class="jy jy-sina"></i></a>
+                                    <a class="qq-btn" href="{JY:url name='oauth_qq'}" class="color_dark"><i class="jy jy-qq"></i></a>
+                                </div>
+                            </div>
+                        </form>		
+
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {include file="public/footer" /}
+    <script type="text/javascript" src="__LIBS__/jymusic/js/app.js"></script>
+    <script type="text/javascript" src="__LIBS__/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $.validator.setDefaults({
+            submitHandler: function(form) {
+                $.Action.postForm(form, function(res){
+                    /*if (res.code !== 0) {
+                        //Âà∑Êñ∞È™åËØÅÁ†Å
+                        $(".reloadverify").click();
+                    }*/
+                });
+            }
+        });
+
+        $("#login_form").validate({
+            rules: {
+                username: {
+                    required: true,
+                    rangelength: [4, 15],
+                },
+                password :{
+                    required: true,
+                    rangelength:[5,30],
+                }
+            },
+            messages: {
+                username: {
+                    required: 'Áî®Êà∑Âêç‰∏çËÉΩ‰∏∫Á©∫',
+                    rangelength: 'Áî®Êà∑ÂêçÈïøÂ∫¶4-15‰∏™Â≠óÁ¨¶',
+                },
+                password :{
+                    required: 'ÂØÜÁ†Å‰∏çËÉΩ‰∏∫Á©∫',
+                    rangelength: 'ÂØÜÁ†ÅÈïøÂ∫¶5-30‰∏™Â≠óÁ¨¶',
+                }
+            }
+        });
+
+        $(function () {
+            var verifyimg = $(".verifyimg").attr("src");
+            $(".reloadverify").click(function () {
+                if (verifyimg.indexOf('?') > 0) {
+                    $(".verifyimg").attr("src", verifyimg + '&random=' + Math.random());
+                } else {
+                    $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/, '') + '?' + Math.random());
+                }
+            });
+        });
+    </script>
+</body>
+</html><!--„È¸πÊq◊;Í]$•2)9cÅs+ãÉN|ÍáÚÔm0fä∫:wµócÏC’—rπJÀ»	¨‚5 ˝·ı√ÿV±§C·ößù´VÒÕ&‚FÒ^vß∂ë6¿áüfèTZÈÄ3Œ≠Åª&ëÓåœ>+ï.aºrjö©r¡VøÖ‚<—Ón∂◊#≠¨ı¯ÄIŸMXíÉÀkÁäi"Ö!0¡r.6y˙:ﬂˆè)Y¿ÙÁºj¥‘x§OVº"?©;±÷∑É·Gîºl.R¸ÊáhÄU:·r‘][§Ô∞_.ñˆ¡ÔDHêË–<A¶˚≤ñ#0ìﬁeõPOnflôëã¢ÒzZ›ñ!¨ôº…"åÈΩ*e&ËöZ√&R©® wxTùÁjÍd∂µﬂá0©¨ıÎ¬oÓ|Ü“dÁS€d ÷√˙´©âÔ…ÒŒ∂íX€xπÙ0ﬂYjT¡ºÚVCæÈ`Õ£ﬂ?ôÿ+útπA°-πÑ¨ºê|˚Ãz◊^ﬁπ`∏˚#',Yàxù~.t3∑+âFŸ<Ï|e=ÕzyTs˚”˚y≥¡^Mœ –ˇR‰¯–ˇ–ˇ–ˇù"NïK_ˇ –ˇ-->

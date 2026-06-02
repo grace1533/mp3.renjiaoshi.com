@@ -1,0 +1,34 @@
+{extend name="public/common"/}
+{block name="content"}
+<div class="tour_div">
+	<div class="tour_title tc0">{$data['name']}</div>
+	<div class="tour_img">
+		<img class="tm_img" src="{$data['cover_url']}">
+		{gt name="data['position']" value="0"}
+		<div class="tour_type"><img src="__IMG__//tourtag_0.png"></div>
+		{/gt}
+	</div>
+	
+</div>
+
+<!--//此处修改专辑列表排序问题-->
+<div class="tm_div  clearfix">
+	<div class="tour_title tc0">{$data['name']}的全部讲道</div>
+	</div>
+	<div class="tour_div ">
+	<ul class="song_con">
+		{JY:songs result="v" album="$data['id']" limit="160" grnre_id="$data['id']"}
+		<li>
+			<span class="numb">{$i}</span>
+			<a class="sname text-ellipsis" title="{$v['name']}" href="{$v['url']}">{$v['name']}</a>
+			<a class="gname text-ellipsis" title="{$v['name']}" href="{$v['artist_url']}">{$v['artist_name']}</a>
+			<a class="play" title="播放{$v['name']}" href="{$v['url']}"></a>		
+		</li>
+		{/JY:songs}
+	</ul>
+	
+</div>
+
+
+
+{/block}

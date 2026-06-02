@@ -1,0 +1,50 @@
+{extend name="public/common"/}
+{block name="content"}
+<!--包屑-->
+<div class="page_content_offset">
+	<div class="down_page container">
+		<section class="col-sm-9 m_xs_bottom_10">
+
+			<div class="row clearfix pt_10">	
+				<div class="col-lg-12">
+					<h2 class="mt_20">您要下载的</h2>
+					<hr>
+				</div>
+				<div class="col-lg-9 col-md-9 col-sm-12">				
+					<div class="pull-left">
+						<a href="{$data['url']}"><img height="70" width="70" src="{$data.cover_url}"></a>
+					</div>
+						
+					<div class="pull-left ml_20">
+						<h4 class="mb_20">
+                            {notempty name="data.artist_name "}{$data.artist_name} -- {/notempty} {$data.name}
+						</h4>
+						<div class="mb_10">{:hook('pageBody',array('widget'=>'Baidushare'))}</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					<a class="mb_10 down_muisc d_block btn_1 text-center" onclick="downMusic({$data['id']})" href="javascript:;">
+						<span class="d_inline_middle">
+							<b>点击下载</b>
+						</span>
+					</a>
+				</div>
+			
+			</div>
+			<hr class="mb_10 ">
+			<div class="row clearfix pt_10">					
+				<div class="col-lg-5 col-md-4 col-sm-4 col-xs-5 t_align_l mb_20">
+					
+				</div>
+			
+			</div>
+
+			
+			
+		</section>
+		
+		
+	</div>
+</div>
+{/block}

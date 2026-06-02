@@ -1,0 +1,33 @@
+{extend name="public/common"/}
+{block name="search"}{/block}
+{block name="topnav"}
+<style>#search{display:none}</style>
+<div class="mod_search_bar">
+	<div id="input_wrap" class="search_bar_cont">
+		<form id="search_form" method="get" action="{JY:url name='search'}" onsubmit="return false">
+			<input id="search_input" class="search_input" name='keys' type="search" autocomplete="off" style="-webkit-appearance: textfield;" autocorrect="off" placeholder="搜索讲道">
+		</form>
+	</div>
+	<div id="search_btn" class="search_bar_tip_text" style="">搜索</div>
+</div>
+{/block}
+{block name="content"}
+<div class="tour_div">
+	<div class="tour_title tc0">{$keys}相关讲道</div>
+	<ul class="song_con">
+		{notempty name="list"}
+		{JY:loop name="list" model="songs" result="v"}
+		<li>
+			<span class="numb">{$i}</span>
+			<a class="sname text-ellipsis" title="{$v['name']}" href="{$v['url']}">{$v['name']}</a>
+			<a class="gname text-ellipsis" title="{$v['name']}" href="{$v['artist_url']}">{$v['artist_name']}</a>
+			<a class="play" title="播放{$v['name']}" href="{$v['url']}"></a>		
+		</li>
+		{/JY:loop}
+		{else /}
+		<p class="text-center" style="text-align:center"><strong>很抱歉，没有找到相关的结果</strong></p>
+		{/notempty}
+	</ul>
+	
+</div>
+{/block}

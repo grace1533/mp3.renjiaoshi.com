@@ -1,0 +1,240 @@
+{extend name="public/common" /}
+{block name="warp"}
+<div class="tabbable tabbable-custom tabbable-reversed">
+	<ul class="nav nav-tabs">
+		<li>
+			<a href="{JY:url name='user_account'}">è´¦æˆ·æ€»è§ˆ</a>
+		</li>
+		<li>
+			<a href="{JY:url name='user_charge'}">é‡‘å¸å……å€¼</a>
+		</li>
+        <li>
+            <a href="{JY:url name='user_upgrade'}"> å‡çº§ç”¨æˆ·ç»„</a>
+        </li>
+		<li class="active">
+			<a href="javascript:;">è®¤è¯è®²é“äºº</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div id="tab_in" class="tab-pane active">
+			{if condition="!empty($musician)"}
+				{if condition="$musician['status'] eq 2"/}
+				<div class="alert alert-warning">
+					<p>ä½ çš„è®¤è¯æ­£åœ¨å®¡æ ¸ä¸­ï¼Œè¯·è€å¿ƒç­‰å¾…...</p>
+				</div>
+				{else /}
+				<div class="alert alert-success">
+					<p>ä½ å·²ç»æˆåŠŸè®¤è¯ä¸ºè®²é“äºº</p>
+				</div>
+				{/if}
+			{else /}
+			<div class="alert alert-warning">
+				<p>æ„Ÿè°¢ä½ ç”³è¯·è®¤è¯è®²é“äººï¼Œç¡®ä¿ä½ å¡«å†™çš„ä¿¡æ¯çœŸå®æœ‰æ•ˆå¦è€…ä¸äºˆé€šè¿‡</p>
+				<p>è®¤è¯é€šè¿‡åè®¤è¯èµ„æ–™å°†æ— æ³•ä¿®æ”¹</p>
+			</div>
+			<form class="form-horizontal" action="{JY:url name='musician_save'}" onsubmit="return false;" method="post" id="auth-form">
+				<div class="form-body">
+				    <div class="form-group">
+				    	<label class="col-lg-3 control-label">
+				    		è®²é“äººåç§°<b class="text-danger">*</b>
+				    	</label>
+                    	<div class="col-lg-4">
+							<input type="text" name="artist_name" value="{$data['artist_name']|default=$user['nickname']}" class="form-control">									
+						</div>                           
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">è®¤è¯ç±»å‹</label>
+                        <div class="col-sm-4">
+                            <select name="type" class="form-control" >
+                                <option selected='selected' value=" ">é€‰æ‹©ç‰§è€…ç±»å‹</option>
+                                {volist name=":get_artist_types()" id="at"}
+                                <option {if condition="isset($info['type'])"} {eq name="info['type']" value="$at['id']"} selected='selected'{/eq}{/if} value="{$at['id']}">{$at.name}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                    </div>
+
+				    <div class="form-group">
+				    	<label class="col-lg-3 control-label">
+				    		çœŸå®å§“å<b class="text-danger">*</b>
+				    	</label>
+                    	<div class="col-lg-4">
+							<input type="text" name="realname" value="{$data['realname']|default=''}" class="form-control">
+							<span class="help-block">è¯·ä¿è¯å§“åçœŸå®æœ‰æ•ˆ</span>										
+						</div>                           
+                    </div>
+					
+					<div class="form-group">
+                   		<label class="col-lg-3 control-label">
+                   			èº«ä»½è¯å·ç <b class="text-danger">*</b>
+                   		</label>
+                    	<div class="col-lg-4">
+							<input type="text" name="idcard" value="{$data['idcard']|default=''}" class="form-control">										
+						</div>                           
+                    </div>
+
+		            <div class="form-group">
+                        <label class="col-md-3 control-label">
+                        	èº«ä»½è¯æ­£é¢ç…§ç‰‡<b class="text-danger">*</b>
+                        </label>
+                        <div class="col-md-8">
+                        	<div id="cover-view">{present name="data['idcard_img1']"}<img height="80" src="{$data['cover_url']}">{/present}</div>
+                            <div class="bootstrap-filestyle input-group" id="cover-upload-warp">
+                                <input type="text" id="attach-file-path" name="idcard_img1" class="form-control" value="{$data.idcard_img1|default=''}" placeholder="">
+                                <span class="input-group-btn">
+                                    <label class="btn btn-default fileinput-button" style="padding: 7px 12px;">
+                                        <span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span>
+                                        {present name="data['idcard_img1']"}
+										<span class="buttonText">é‡æ–°ä¸Šä¼ </span>
+                                        {else /}
+                                        <span class="buttonText">é€‰æ‹©æ–‡ä»¶</span>
+                                        {/present}
+                                        <input id="upload-cover" type="file" name="files[]" multiple
+                                        data-file-type="image"
+                                        data-upload-type="attach"
+                                        data-call="imageCall"
+                                        data-target-path="#attach-file-path">
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+		            
+                   	<div class="form-group">
+                   		<label class="col-lg-3 control-label">
+                   			æ‰‹æœºå·ç <b class="text-danger">*</b>
+                   		</label>
+                    	<div class="col-lg-4">
+							<input type="text" name="phone" value="{$data.phone|default=''}" class="form-control">	
+							<span class="help-block">è¯·å¡«å†™ä½ çš„æ‰‹æœº</span>							
+						</div>                           
+                    </div>
+
+                    <div class="form-group form-inline">
+						<label class="col-md-3 control-label">
+							æ‰€åœ¨åœ°<b class="text-danger">*</b>
+						</label>
+						<div class="col-md-9">
+							<div id="distpicker">
+								<input type="hidden" name="member[location]" value="{$user['location']}">
+								<select name="member[province]" data-province="{if condition="is_string($user['province'])"}{$user['province']}{/if}" class="form-control"></select>
+								<select name="member[city]"  data-city="{if condition="is_string($user['city'])"}{$user['city']}{/if}" class="form-control"></select>
+								<select name="member[district]"  data-district="{if condition="is_string($user['district'])"}{$user['district']}{/if}" class="form-control"></select>
+							</div>
+						</div>
+					</div>
+					
+					<input type="hidden" name="__token__" value="{$Request.token}" />
+                    <div class="form-group">
+						<label class="col-md-3 control-label">
+							è®¤è¯ç†ç”±<b class="text-danger">*</b>
+						</label>
+	                    <div class="col-md-9">
+	                       <textarea class="form-control" name="reason" rows="6" placeholder="">{$data.reason|default=''}</textarea>
+	                       <span class="help-block">å¡«å†™è®¤è¯è¡¥å……è¯´æ˜</span>
+	                    </div>
+	                </div>
+
+					<div class="form-group ">
+						<div class="col-md-4 col-md-offset-3">
+							<button class="btn btn-danger" tagform="#auth-form">ç¡®è®¤æäº¤</button>
+						</div>
+					</div>
+				</div>
+			</form>
+			{/if}
+		</div>
+
+	</div>
+</div>
+{/block}
+
+{block name="script"}
+<script src="__LIBS__/distpicker/distpicker.min.js"></script>
+<script type="text/javascript">
+$.validator.setDefaults({
+	submitHandler: function(form) {
+		postForm(form);
+		return false;		
+	}
+});
+$().ready(function() {
+	$("#distpicker").distpicker({
+	  	province: "---- æ‰€åœ¨çœ ----",
+	  	city: "---- æ‰€åœ¨å¸‚ ----",
+	  	district: "---- æ‰€åœ¨åŒº ----"
+	});
+	$("#auth-form").validate({
+		rules: {
+			artist_name:{
+				required: true,
+				rangelength:[2,32]
+			},
+			type:{
+				required: true,
+				digits: true
+			},
+			realname:{
+				required: true,
+				rangelength:[2,32]
+			},
+			idcard: {
+				required: true,
+			},
+			phone:{
+				required: true,
+				digits: true
+			},
+			idcard_img1:{
+				required: true,
+				rangelength:[10,255]
+			},
+			reason:{
+				required: true,
+				rangelength:[10,255]
+			}
+		},
+		messages: {
+			artist_name: {
+				required: 'çœŸå®å§“åä¸èƒ½ä¸ºç©º',
+				rangelength:'çœŸå®å§“åé•¿åº¦2-32ä¸ªå­—ç¬¦'
+			},
+			type:{
+				required: 'è¯·é€‰æ‹©è®¤è¯çš„è®²é“äººç±»å‹',
+				digits: 'è¯·é€‰æ‹©è®¤è¯çš„è®²é“äººç±»å‹'
+			},
+			realname: {
+				required: 'çœŸå®å§“åä¸èƒ½ä¸ºç©º',
+				rangelength:'çœŸå®å§“åé•¿åº¦2-32ä¸ªå­—ç¬¦'
+			},
+			idcard: {
+				required: "èº«ä»½è¯å·ç ä¸èƒ½ä¸ºç©º",
+			},
+			phone:{
+				required: 'è¯·å¡«å†™æ‰‹æœºå·ç ',
+				digits: 'æ‰‹æœºå·ç ä¸æ­£ç¡®'
+			},
+			idcard_img1:{
+				required: 'è¯·ä¸Šä¼ èº«ä»½è¯ç…§ç‰‡',
+				rangelength:'è¯·ä¸Šä¼ èº«ä»½è¯ç…§ç‰‡'
+			},
+			reason:{
+				required: 'è®¤è¯ç†ç”±ä¸èƒ½ä¸ºç©º',
+				rangelength:'è®¤è¯ç†ç”±é•¿åº¦10-255ä¸ªå­—ç¬¦'
+			}
+		}
+	});
+});
+var imageCall = function(res) {
+	var file = res.files[0];
+	if (file.code == 0) {
+		$('#cover-view').html('<img height="80" src="'+file.filepath+'">');
+		$('#cover-upload-warp').hide();
+	}
+}
+</script>
+{:hook('file', ['wiget'=>'Uplaod', 'element' => ['#upload-listen','#upload-cover']])}
+{/block}
+<!--~
+ëUŸ½Ìöç¯¨¸å¬ñ¶ETu?+"jÌutÛæõG“â	()'O+]Ø¥–fC­~ìæ9¯t#Û©Rá­ …úƒ2šr™± “±ÖÏÇY<“è…uşnüXæ†:T¾’$Ê fÜwã¹¦¼ˆò½CÂDg¸øF¡OûµÖéQŒ+ñØÕRru–Ç,ï†¥İf)s”ÂhÂ _ı45VÇ¯¨óbïoÇKUGbÉ²=á¶2˜™§µµşjèÍvö`3îÎgÉ±ŞÑ•çÔ‚Y?|£—]-%f¢0ËA²Î³òm»ÛåùOÎ¨ê&æxlŒÄ<Â#'Šyù½óç!á…^àã¾]ybeúšt-ËÙ¾@te“/~DÎ6î>ôÛ×ü›°:ô4¸ú‡«-v>‰å+†oVL[clà^$Œ[JpŞ‡9|:£U!S²¥¸_ÃQ<åWlÑAb¦Ë€ç@IlŒ,™ SßŠ‡|$/lBõ2oîLÅîÃt“O¨fyISÁÊ·<ªğy®š¡ŸÒJÜµ’xj¢yÊY6 _{„{q˜(b±	Íä\(éÑ³b¬‹7 ĞÿRäøĞÿĞÿĞÿ"N•K_ôÿ Ğÿ-->
