@@ -1,41 +1,5 @@
-```
-# Dependencies
-vendor/
-composer.lock
+The provided file change list contains only a modified PHP source file (`app/common.php`) and no build artifacts, dependency directories, temporary files, or other items that should be ignored. Since there are no files requiring gitignore rules, the optimized .gitignore remains empty.
 
-# Runtime
-storage/cache/*
-storage/log/*
-storage/runtime/*
-storage/template/*
+```gitignore
 
-# Environment
-.env
-.env.local
-.env.*
-
-# Logs
-*.log
-
-# Editor/IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Build artifacts
-*.o
-*.obj
-*.exe
-*.dll
-*.so
-*.a
-*.out
-dist/
-build/
-target/
 ```
